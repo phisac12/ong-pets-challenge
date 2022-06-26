@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ong_pet_desafio/domain/model/ong_cat_model.dart';
-import 'package:ong_pet_desafio/domain/model/ong_pet_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
-class SingleDogWidget extends StatelessWidget {
-  SingleDogWidget({Key? key, this.dogAnimal, this.catAnimal})
-      : super(key: key);
+class SingleCatWidget extends StatelessWidget {
+  SingleCatWidget({Key? key,  required OngCatModel this.catAnimal}) : super(key: key);
 
-  OngPetModel? dogAnimal;
   OngCatModel? catAnimal;
 
   @override
@@ -24,18 +21,18 @@ class SingleDogWidget extends StatelessWidget {
             )),
         backgroundColor: Colors.white,
       ),
-      body: buildDogScreen(context, dogAnimal),
+      body: buildCatScreen(context, catAnimal!),
     );
   }
 
-  Widget buildDogScreen(BuildContext context, OngPetModel? dog) {
+  Widget buildCatScreen(BuildContext context, OngCatModel cat) {
     return Container(
       width: MediaQuery.of(context).size.width * 1,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            dog!.name!,
+            cat.name!,
             style: GoogleFonts.fjallaOne(
                 fontSize: 35,
                 fontWeight: FontWeight.bold,
@@ -48,12 +45,12 @@ class SingleDogWidget extends StatelessWidget {
               backgroundColor: Colors.black,
               child: CircleAvatar(
                 radius: 115,
-                backgroundImage: NetworkImage(dog.imageUrl!),
+                backgroundImage: NetworkImage(cat.imageUrl!),
               ),
             ),
           ),
           Text(
-            'Tempo de vida ${dog.lifeSpan!}',
+            'Tempo de vida ${cat.lifeSpan!}',
             style: GoogleFonts.fjallaOne(
                 fontSize: 23,
                 fontWeight: FontWeight.bold,
@@ -62,24 +59,18 @@ class SingleDogWidget extends StatelessWidget {
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-              text: '${dog.bredFor ?? 'Sem info'} \n',
+              text: '${cat.description ?? 'Sem info'} \n',
               style: GoogleFonts.fjallaOne(
                   fontWeight: FontWeight.w500, fontSize: 15),
               children: <TextSpan>[
                 TextSpan(
-                    text: '${dog.origin} \n',
+                    text: '${cat.origin} \n',
                     style: GoogleFonts.fjallaOne(
                         fontWeight: FontWeight.w500,
                         fontSize: 15,
                         color: Colors.black)),
                 TextSpan(
-                    text: '${dog.temperament} \n',
-                    style: GoogleFonts.fjallaOne(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15,
-                        color: Colors.black)),
-                TextSpan(
-                    text: '${dog.breedGroup} \n',
+                    text: '${cat.temperament} \n',
                     style: GoogleFonts.fjallaOne(
                         fontWeight: FontWeight.w500,
                         fontSize: 15,

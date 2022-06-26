@@ -6,6 +6,7 @@ import 'package:ong_pet_desafio/domain/model/ong_pet_model.dart';
 import 'package:ong_pet_desafio/domain/services/dio_client.dart';
 import 'package:ong_pet_desafio/domain/services/ong_pet_service.dart';
 import 'package:ong_pet_desafio/ui/screens/single_animal_page.dart';
+import 'package:ong_pet_desafio/ui/screens/single_cat_widget.dart';
 import 'package:ong_pet_desafio/ui/style/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -53,10 +54,16 @@ class _HomePageState extends State<HomePage> {
           bottom: TabBar(
             tabs: [
               Tab(
-                icon: Image.asset('assets/images/dog.png', width: 35,),
+                icon: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset('assets/images/dog.png', width: 35,),
+                ),
               ),
               Tab(
-                icon: Image.asset('assets/images/cat.png', width: 35,),
+                icon: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset('assets/images/cat.png', width: 35,),
+                ),
               )
             ],
           ),
@@ -108,8 +115,8 @@ class _HomePageState extends State<HomePage> {
       elevation: 10,
       child: ListTile(
         leading: const Icon(Icons.arrow_right),
-        trailing: const Icon(Icons.ac_unit),
-        onTap: () => Get.to(SingleAnimalPage(dogAnimal: dog,)),
+        trailing: const Icon(Icons.pets),
+        onTap: () => Get.to(SingleDogWidget(dogAnimal: dog,)),
         subtitle: Row(
           children: [
             Text('Tempo médio de vida - ', style: GoogleFonts.staatliches(fontSize: 15, fontWeight: FontWeight.w200),),
@@ -126,8 +133,8 @@ class _HomePageState extends State<HomePage> {
       elevation: 10,
       child: ListTile(
         leading: const Icon(Icons.arrow_right),
-        trailing: const Icon(Icons.ac_unit),
-        onTap: () => Get.to(SingleAnimalPage(catAnimal: cat,)),
+        trailing: const Icon(Icons.pets),
+        onTap: () => Get.to(SingleCatWidget(catAnimal: cat,)),
         subtitle: Row(
           children: [
             Text('Tempo médio de vida - ', style: GoogleFonts.staatliches(fontSize: 15, fontWeight: FontWeight.w200),),

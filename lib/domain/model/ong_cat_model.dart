@@ -18,7 +18,6 @@ class OngCatModel {
       this.imageUrl});
 
   static OngCatModel fromJson(Map map) {
-    print(map.keys);
     return OngCatModel(
       id: map['id'],
       name: map['name'],
