@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ong_pet_desafio/domain/controller/ong_pet_controller.dart';
+import 'package:ong_pet_desafio/domain/model/ong_cat_model.dart';
 import 'package:ong_pet_desafio/domain/model/ong_pet_model.dart';
 import 'package:ong_pet_desafio/domain/services/dio_client.dart';
 import 'package:ong_pet_desafio/domain/services/ong_pet_service.dart';
@@ -20,60 +21,121 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    controller.fetchAllPets();
+    controller.fetchAllDogs();
+    controller.fetchAllCats();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.primaryColor,
-      appBar: AppBar(
-        backgroundColor: AppColors.secondaryColor,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+    return DefaultTabController(
+      initialIndex: 0,
+      length: 2,
+      child: Scaffold(
+        backgroundColor: Colors.white70,
+        appBar: AppBar(
+          toolbarHeight: 100,
+          backgroundColor: AppColors.secondaryColor,
+          title: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                   Text('Ong Pets', style: GoogleFonts.staatliches(fontSize: 25, fontWeight: FontWeight.w200),),
+                  Image.asset(
+                    'assets/images/logo.png',
+                    width: 65,
+                  ),
+                ],
+              ),
+              Text('Pets Disponíveis para adoção', style: GoogleFonts.staatliches(fontSize: 20, fontWeight: FontWeight.w200),)
+            ],
+          ),
+          bottom: TabBar(
+            tabs: [
+              Tab(
+                icon: Image.asset('assets/images/dog.png', width: 35,),
+              ),
+              Tab(
+                icon: Image.asset('assets/images/cat.png', width: 35,),
+              )
+            ],
+          ),
+        ),
+        body: TabBarView(
           children: [
-            const Text('Ong Pets'),
-            const SizedBox(
-              width: 5,
+            Center(
+              child: AnimatedBuilder(
+                animation: controller,
+                builder: (context, widget) {
+                 return ListView.builder(
+                      itemCount: controller.dogsGet.length,
+                      itemBuilder: (context, index) {
+                        final dog = controller.dogsGet[index];
+                        return Column(
+                          children: [
+                            buildDogList(dog),
+                          ],
+                        );
+                      });
+                },
+              ),
             ),
-            Image.asset(
-              'assets/images/logo.png',
-              width: 65,
+            Center(
+              child: AnimatedBuilder(
+                animation: controller,
+                builder: (context, widget) {
+                  return ListView.builder(
+                      itemCount: controller.catsGet.length,
+                      itemBuilder: (context, index) {
+                        final cat = controller.catsGet[index];
+                        return Column(
+                          children: [
+                            buildCatList(cat),
+                          ],
+                        );
+                      });
+                },
+              ),
             ),
           ],
         ),
-      ),
-      body: AnimatedBuilder(
-        animation: controller,
-        builder: (context, widget) {
-         return ListView.builder(
-              itemCount: controller.pets.length,
-              itemBuilder: (context, index) {
-                final dog = controller.pets[index];
-                return buildDogList(dog);
-              });
-        },
       ),
     );
   }
 
  Widget buildDogList(OngPetModel dog) {
-    return ListTile(
-      leading: const Icon(Icons.arrow_right),
-      onTap: () => Get.to(SingleAnimalPage(animal: dog,)),
-      shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: Colors.green.shade300,
+    return Card(
+      elevation: 10,
+      child: ListTile(
+        leading: const Icon(Icons.arrow_right),
+        trailing: const Icon(Icons.ac_unit),
+        onTap: () => Get.to(SingleAnimalPage(dogAnimal: dog,)),
+        subtitle: Row(
+          children: [
+            Text('Tempo médio de vida - ', style: GoogleFonts.staatliches(fontSize: 15, fontWeight: FontWeight.w200),),
+            Text(dog.lifeSpan!, style: GoogleFonts.staatliches(fontSize: 15, fontWeight: FontWeight.w200),),
+          ],
         ),
-        borderRadius: BorderRadius.circular(12),
+        title: Text(dog.name!, style: GoogleFonts.staatliches(fontWeight: FontWeight.w400, fontSize: 25, color: Colors.black)),
       ),
-      subtitle: Row(
-        children: [
-          Text('Tempo médio de vida - ', style: GoogleFonts.staatliches(fontSize: 15, fontWeight: FontWeight.w200),),
-          Text(dog.lifeSpan!, style: GoogleFonts.staatliches(fontSize: 15, fontWeight: FontWeight.w200),),
-        ],
+    );
+  }
+
+  Widget buildCatList(OngCatModel cat) {
+    return Card(
+      elevation: 10,
+      child: ListTile(
+        leading: const Icon(Icons.arrow_right),
+        trailing: const Icon(Icons.ac_unit),
+        onTap: () => Get.to(SingleAnimalPage(catAnimal: cat,)),
+        subtitle: Row(
+          children: [
+            Text('Tempo médio de vida - ', style: GoogleFonts.staatliches(fontSize: 15, fontWeight: FontWeight.w200),),
+            Text(cat.lifeSpan!, style: GoogleFonts.staatliches(fontSize: 15, fontWeight: FontWeight.w200),),
+          ],
+        ),
+        title: Text(cat.name!, style: GoogleFonts.staatliches(fontWeight: FontWeight.w400, fontSize: 25, color: Colors.black)),
       ),
-      title: Text(dog.name!, style: GoogleFonts.staatliches(fontWeight: FontWeight.w400, fontSize: 25, color: Colors.white)),
     );
   }
 }

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:ong_pet_desafio/domain/model/ong_cat_model.dart';
 import 'package:ong_pet_desafio/domain/model/ong_pet_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
 class SingleAnimalPage extends StatelessWidget {
-  SingleAnimalPage({Key? key, required this.animal}) : super(key: key);
+  SingleAnimalPage({Key? key, this.dogAnimal, this.catAnimal})
+      : super(key: key);
 
-  OngPetModel animal;
+  OngPetModel? dogAnimal;
+  OngCatModel? catAnimal;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,7 @@ class SingleAnimalPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              animal.name!,
+              dogAnimal!.name!,
               style: GoogleFonts.fjallaOne(
                   fontSize: 35,
                   fontWeight: FontWeight.bold,
@@ -40,12 +43,12 @@ class SingleAnimalPage extends StatelessWidget {
                 backgroundColor: Colors.black,
                 child: CircleAvatar(
                   radius: 115,
-                  backgroundImage: NetworkImage(animal.imageUrl!),
+                  backgroundImage: NetworkImage(dogAnimal!.imageUrl!),
                 ),
               ),
             ),
             Text(
-              'Tempo de vida ${animal.lifeSpan!}',
+              'Tempo de vida ${dogAnimal!.lifeSpan!}',
               style: GoogleFonts.fjallaOne(
                   fontSize: 23,
                   fontWeight: FontWeight.bold,
@@ -54,24 +57,24 @@ class SingleAnimalPage extends StatelessWidget {
             RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
-                text: '${animal.bredFor ?? 'Sem info'} \n',
+                text: '${dogAnimal!.bredFor ?? 'Sem info'} \n',
                 style: GoogleFonts.fjallaOne(
                     fontWeight: FontWeight.w500, fontSize: 15),
                 children: <TextSpan>[
                   TextSpan(
-                      text: '${animal.origin} \n',
+                      text: '${dogAnimal!.origin} \n',
                       style: GoogleFonts.fjallaOne(
                           fontWeight: FontWeight.w500,
                           fontSize: 15,
                           color: Colors.black)),
                   TextSpan(
-                      text: '${animal.temperament} \n',
+                      text: '${dogAnimal!.temperament} \n',
                       style: GoogleFonts.fjallaOne(
                           fontWeight: FontWeight.w500,
                           fontSize: 15,
                           color: Colors.black)),
                   TextSpan(
-                      text: '${animal.breedGroup} \n',
+                      text: '${dogAnimal!.breedGroup} \n',
                       style: GoogleFonts.fjallaOne(
                           fontWeight: FontWeight.w500,
                           fontSize: 15,
@@ -81,9 +84,7 @@ class SingleAnimalPage extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () => null,
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.green
-                ),
+                style: ElevatedButton.styleFrom(primary: Colors.green),
                 child: Text(
                   'Adotar',
                   style: GoogleFonts.fjallaOne(
