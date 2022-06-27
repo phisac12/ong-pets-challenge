@@ -4,6 +4,7 @@ import 'package:ong_pet_desafio/ui/screens/home_page.dart';
 import 'package:ong_pet_desafio/ui/style/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import 'package:ong_pet_desafio/util/util.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
@@ -45,30 +46,47 @@ class LoginPage extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.85,
                   child: TextField(
+                    keyboardType: TextInputType.emailAddress,
                     controller: emailController,
                     decoration: InputDecoration(
                       filled: true,
-                        fillColor: Colors.white,
-                        labelText: 'Digite seu e-mail',
-                        labelStyle: GoogleFonts.staatliches(fontSize: 15),
-                        prefixIcon: const Icon(Icons.email),
+                      fillColor: Colors.white,
+                      labelText: 'Digite seu e-mail',
+                      labelStyle: GoogleFonts.staatliches(fontSize: 15),
+                      prefixIcon: const Icon(Icons.email),
                     ),
                   ),
                 ),
-                const SizedBox(height: 15,),
+                const SizedBox(
+                  height: 15,
+                ),
                 ElevatedButton(
-                    onPressed: () {
-                      loginController.emailData.value = emailController.text;
-                      if(loginController.verifyEmail() == true){
+                  onPressed: () {
+                    loginController.emailData.value = emailController.text;
+                    if (!Util.isEmailTwo(emailController.text)) {
+                      showTopSnackBar(
+                          context,
+                          const CustomSnackBar.error(
+                              message:
+                                  'Você precisa digitar um e-mail válido'));
+                    }
+                    if (Util.isEmailTwo(emailController.text)) {
+                      if (loginController.verifyEmail() == true) {
                         Get.to(HomePage());
-                      } else if (!loginController.verifyEmail()){
-                        showTopSnackBar(context, const CustomSnackBar.error(message: 'Você não está autorizado a logar'));
                       }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.green
-                    ),
-                    child: Text('Entrar', style: GoogleFonts.staatliches(fontSize: 17, fontWeight: FontWeight.w500, color: Colors.greenAccent.shade100)),
+                    } else if (!loginController.verifyEmail()) {
+                      showTopSnackBar(
+                          context,
+                          const CustomSnackBar.error(
+                              message: 'Você não está autorizado a logar'));
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(primary: Colors.green),
+                  child: Text('Entrar',
+                      style: GoogleFonts.staatliches(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.greenAccent.shade100)),
                 )
               ],
             ),
