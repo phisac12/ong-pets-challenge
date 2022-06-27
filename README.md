@@ -1,7 +1,7 @@
 # ong_pet_desafio
 
 Um desafio para uma ong de pets
-Para rodar o projeto basta abri-lo em uma IDE de sua preferência.
+## Para rodar o projeto basta abri-lo em uma IDE de sua preferência.
 
 ## Getting Started
 
