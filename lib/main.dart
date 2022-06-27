@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ong_pet_desafio/ui/screens/home_page.dart';
 import 'package:get/get.dart';
+import 'package:ong_pet_desafio/ui/screens/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: LoginPage(),
     );
   }
 }
