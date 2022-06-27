@@ -41,14 +41,14 @@ class _HomePageState extends State<HomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                   Text('Ong Pets', style: GoogleFonts.staatliches(fontSize: 25, fontWeight: FontWeight.w200),),
+                   Text('Ong Pets', style: GoogleFonts.staatliches(fontSize: 25, fontWeight: FontWeight.w200, color: Colors.black),),
                   Image.asset(
                     'assets/images/logo.png',
                     width: 65,
                   ),
                 ],
               ),
-              Text('Pets Disponíveis para adoção', style: GoogleFonts.staatliches(fontSize: 20, fontWeight: FontWeight.w200),)
+              Text('Pets Disponíveis para adoção', style: GoogleFonts.staatliches(fontSize: 20, fontWeight: FontWeight.w200, color: Colors.black),)
             ],
           ),
           bottom: TabBar(
