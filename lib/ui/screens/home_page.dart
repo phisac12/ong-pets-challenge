@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
       initialIndex: 0,
       length: 2,
       child: Scaffold(
-        backgroundColor: Colors.white70,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           toolbarHeight: 100,
           backgroundColor: AppColors.secondaryColor,
